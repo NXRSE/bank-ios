@@ -13,6 +13,13 @@
 		3E31617D1C07E7190090664F /* Bank.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E31617B1C07E7190090664F /* Bank.xcdatamodeld */; };
 		3E31617F1C07E7190090664F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E31617E1C07E7190090664F /* Assets.xcassets */; };
 		3E3161821C07E7190090664F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E3161801C07E7190090664F /* LaunchScreen.storyboard */; };
+		3E31618B1C07E9CB0090664F /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E31618A1C07E9CB0090664F /* home.png */; };
+		3E31618D1C07EA010090664F /* contacts.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E31618C1C07EA010090664F /* contacts.png */; };
+		3E31618F1C07EA1F0090664F /* transactions.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E31618E1C07EA1F0090664F /* transactions.png */; };
+		3E3161911C07EA3C0090664F /* account.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E3161901C07EA3C0090664F /* account.png */; };
+		3E4F0AA51C0DB8A800E344C4 /* finance-street.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E4F0AA41C0DB8A800E344C4 /* finance-street.png */; };
+		3E4F0AA71C0DB8FE00E344C4 /* logo-tag.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E4F0AA61C0DB8FE00E344C4 /* logo-tag.png */; };
+		3ED233871C105C7200CC5714 /* TCPIPSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED233861C105C7200CC5714 /* TCPIPSocket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +31,13 @@
 		3E31617E1C07E7190090664F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E3161811C07E7190090664F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E3161831C07E7190090664F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E31618A1C07E9CB0090664F /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
+		3E31618C1C07EA010090664F /* contacts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contacts.png; sourceTree = "<group>"; };
+		3E31618E1C07EA1F0090664F /* transactions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transactions.png; sourceTree = "<group>"; };
+		3E3161901C07EA3C0090664F /* account.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = account.png; sourceTree = "<group>"; };
+		3E4F0AA41C0DB8A800E344C4 /* finance-street.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "finance-street.png"; sourceTree = "<group>"; };
+		3E4F0AA61C0DB8FE00E344C4 /* logo-tag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-tag.png"; sourceTree = "<group>"; };
+		3ED233861C105C7200CC5714 /* TCPIPSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TCPIPSocket.swift; path = "TCPIPSocket.Swift-master/TCPIPSocket/TCPIPSocket.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +70,9 @@
 		3E3161731C07E7190090664F /* Bank */ = {
 			isa = PBXGroup;
 			children = (
+				3ED233861C105C7200CC5714 /* TCPIPSocket.swift */,
+				3E4F0AA31C0DB87E00E344C4 /* assets */,
+				3E3161891C07E9B20090664F /* Icons */,
 				3E3161741C07E7190090664F /* AppDelegate.swift */,
 				3E3161761C07E7190090664F /* ViewController.swift */,
 				3E3161781C07E7190090664F /* Main.storyboard */,
@@ -65,6 +82,26 @@
 				3E31617B1C07E7190090664F /* Bank.xcdatamodeld */,
 			);
 			path = Bank;
+			sourceTree = "<group>";
+		};
+		3E3161891C07E9B20090664F /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				3E3161901C07EA3C0090664F /* account.png */,
+				3E31618E1C07EA1F0090664F /* transactions.png */,
+				3E31618C1C07EA010090664F /* contacts.png */,
+				3E31618A1C07E9CB0090664F /* home.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
+		3E4F0AA31C0DB87E00E344C4 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				3E4F0AA61C0DB8FE00E344C4 /* logo-tag.png */,
+				3E4F0AA41C0DB8A800E344C4 /* finance-street.png */,
+			);
+			name = assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +164,13 @@
 			files = (
 				3E3161821C07E7190090664F /* LaunchScreen.storyboard in Resources */,
 				3E31617F1C07E7190090664F /* Assets.xcassets in Resources */,
+				3E31618B1C07E9CB0090664F /* home.png in Resources */,
+				3E31618F1C07EA1F0090664F /* transactions.png in Resources */,
 				3E31617A1C07E7190090664F /* Main.storyboard in Resources */,
+				3E4F0AA51C0DB8A800E344C4 /* finance-street.png in Resources */,
+				3E4F0AA71C0DB8FE00E344C4 /* logo-tag.png in Resources */,
+				3E3161911C07EA3C0090664F /* account.png in Resources */,
+				3E31618D1C07EA010090664F /* contacts.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E3161771C07E7190090664F /* ViewController.swift in Sources */,
+				3ED233871C105C7200CC5714 /* TCPIPSocket.swift in Sources */,
 				3E3161751C07E7190090664F /* AppDelegate.swift in Sources */,
 				3E31617D1C07E7190090664F /* Bank.xcdatamodeld in Sources */,
 			);
@@ -290,6 +334,7 @@
 				3E3161881C07E7190090664F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
