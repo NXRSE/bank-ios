@@ -24,24 +24,30 @@ class ViewController: UIViewController {
         let d   =   f.readDataToEndOfFile()
         
         print(NSString(data: d, encoding: NSUTF8StringEncoding)!)
+        
+        // Load view
+        // let vc : AnyObject! = self.storyboard.instantiateViewControllerWithIdentifier("VIEW_NAME")
+        // self.showViewController(vc as UIViewController, sender: vc)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        print("View loaded")
         // Load defaults
-        
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject("52d27bde-9418-4a5d-8528-3fb32e1a5d69", forKey: "userID")
         defaults.setObject("TestPassword", forKey: "userPassword")
         
         // Try log in with token
         // If token expired, refresh token
-        if let token = defaults.stringForKey("userToken")
+        let token = defaults.stringForKey("userToken")
+        if token!.characters.count > 0
         {
             // We're good
-            print(token)
+            print("Token")
+            print(token!)
             // logInWithToken
         } else {
             // Log in again and then refresh token
@@ -59,25 +65,32 @@ class ViewController: UIViewController {
         let s   =   TCPIPSocket()
         let f   =   NSFileHandle(fileDescriptor: s.socketDescriptor)
         
+        print("User: "+userID+" and password: "+userPassword)
+        
         // @TODO: Does not work over TLS
         // http://stackoverflow.com/a/30648011
         
         // Vagrant: 192.168.33.110, port:
         s.connect(TCPIPSocketAddress(127, 0, 0, 1), 6600)
         //loginString = "0~appauth~2~52d27bde-9418-4a5d-8528-3fb32e1a5d69~TestPassword"
-        f.writeData(("0~"+userID+"~"+userPassword as NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
+        f.writeData(("0~appauth~2~"+userID+"~"+userPassword as NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
         let d   =   f.readDataToEndOfFile()
         
         print(NSString(data: d, encoding: NSUTF8StringEncoding)!)
         
-        var response = NSString(data: d, encoding: NSUTF8StringEncoding)!
+        var response = NSString(data: d, encoding: NSUTF8StringEncoding)! as String
+        
+        // Replace all newlines
+        response = response.stringByReplacingOccurrencesOfString("\n", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
         // @TODO Make this less hacky
         if response == "0~Authentication credentials invalid" {
             response = ""
         }
         
-        return response as String
+        print(response)
+        
+        return response
     }
 
     override func didReceiveMemoryWarning() {
