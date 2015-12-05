@@ -23,6 +23,7 @@
 		3ED233891C11235A00CC5714 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED233881C11235A00CC5714 /* LoginViewController.swift */; };
 		3ED2338B1C11236900CC5714 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2338A1C11236900CC5714 /* SignUpViewController.swift */; };
 		3ED2338D1C11237F00CC5714 /* AccountSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2338C1C11237F00CC5714 /* AccountSummaryViewController.swift */; };
+		3ED2338F1C11AF5D00CC5714 /* TCPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2338E1C11AF5D00CC5714 /* TCPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		3ED233881C11235A00CC5714 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3ED2338A1C11236900CC5714 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3ED2338C1C11237F00CC5714 /* AccountSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSummaryViewController.swift; sourceTree = "<group>"; };
+		3ED2338E1C11AF5D00CC5714 /* TCPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				3ED233881C11235A00CC5714 /* LoginViewController.swift */,
 				3ED2338A1C11236900CC5714 /* SignUpViewController.swift */,
 				3ED2338C1C11237F00CC5714 /* AccountSummaryViewController.swift */,
+				3ED2338E1C11AF5D00CC5714 /* TCPClient.swift */,
 			);
 			path = Bank;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3ED2338F1C11AF5D00CC5714 /* TCPClient.swift in Sources */,
 				3ED2338D1C11237F00CC5714 /* AccountSummaryViewController.swift in Sources */,
 				3ED2338B1C11236900CC5714 /* SignUpViewController.swift in Sources */,
 				3E3161771C07E7190090664F /* ViewController.swift in Sources */,

@@ -13,6 +13,7 @@ import UIKit
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var passwordText: UITextField!
+    @IBOutlet weak var errorLabel: UILabel!
     
     @IBAction func logInButton(sender: AnyObject) {
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -24,6 +25,9 @@ class LoginViewController: UIViewController {
             // Load view
             let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountSummary")
             self.showViewController(vc as! UIViewController, sender: vc)
+        } else {
+            errorLabel.text = "Password incorrect"
+            return
         }
         
     }
