@@ -56,6 +56,12 @@ final class TCPClient {
         
     }
     
+    class func doListAccounts (token: String) -> String {
+        let listAccountsString = token+"~acmt~1000";
+        
+        return doTCPCall(listAccountsString)
+    }
+    
     class func doTCPCall (command: String) -> String{
         let s   =   TCPIPSocket()
         let f   =   NSFileHandle(fileDescriptor: s.socketDescriptor)

@@ -19,16 +19,24 @@ class LoginViewController: UIViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         
         // Check password
-        let password = defaults.stringForKey("userPassword")!
-        
-        if passwordText.text == password {
-            // Load view
-            let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountSummary")
-            self.showViewController(vc as! UIViewController, sender: vc)
+        let password = defaults.stringForKey("userPassword");
+        if (password != nil) {
+            if passwordText.text == password! {
+                // Load view
+                let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountSummary")
+                self.showViewController(vc as! UIViewController, sender: vc)
+            } else {
+                errorLabel.text = "Password incorrect"
+                return
+            }
         } else {
-            errorLabel.text = "Password incorrect"
-            return
+            // Go to sign up screen
+            // Load view
+            let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("SignUpView")
+            self.showViewController(vc as! UIViewController, sender: vc)
         }
+        
+        
         
     }
     
