@@ -122,7 +122,7 @@ class SignUpViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().setObject(token, forKey: "userToken")
         
         // Load account summary view
-        let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountSummary")
+        let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountLanding")
         self.showViewController(vc as! UIViewController, sender: vc)
 
     }

@@ -76,7 +76,310 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="467" y="902"/>
+            <point key="canvasLocation" x="463" y="1118"/>
+        </scene>
+        <!--Payment-->
+        <scene sceneID="bmb-T8-NZY">
+            <objects>
+                <tableViewController id="4H8-am-24s" customClass="RecipientListController" customModule="Bank" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ri7-YH-cUJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a recipient" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wO0-zS-YgK">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <tableView key="tableFooterView" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="cye-V2-qfQ">
+                            <rect key="frame" x="0.0" y="116" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </tableView>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RecipientCell" textLabel="ZiJ-KV-fL2" detailTextLabel="oUx-zQ-pfA" style="IBUITableViewCellStyleSubtitle" id="QLB-Yt-ITn">
+                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QLB-Yt-ITn" id="Dv2-cR-jjP">
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZiJ-KV-fL2">
+                                            <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oUx-zQ-pfA">
+                                            <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="4H8-am-24s" id="jnz-BE-e7E"/>
+                            <outlet property="delegate" destination="4H8-am-24s" id="AfQ-Ld-TtT"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Payment" image="contacts.png" selectedImage="contacts.png" id="wI7-E9-pdS"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7qZ-8g-nIy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1352" y="2497"/>
+        </scene>
+        <!--Deposit-->
+        <scene sceneID="YrI-NP-SYn">
+            <objects>
+                <viewController storyboardIdentifier="DepositView" id="z58-Mp-41Z" customClass="DepositController" customModule="Bank" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="t4q-xy-gvu"/>
+                        <viewControllerLayoutGuide type="bottom" id="RDt-fV-QZd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2wq-x1-jZU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make a deposit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIH-S0-YZ5">
+                                <rect key="frame" x="242" y="46" width="117" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="50A-q7-ERg"/>
+                                    <constraint firstAttribute="width" constant="117" id="vz2-Cc-8yx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max: 100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpG-cj-175">
+                                <rect key="frame" x="242" y="75" width="117" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="117" id="7k7-Iu-fdm"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="H5S-Cl-Qsb"/>
+                                    <constraint firstAttribute="height" constant="21" id="fpo-Nf-MoF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Deposit Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="msE-2X-fKs">
+                                <rect key="frame" x="227" y="112" width="146" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="63m-yW-xmk"/>
+                                    <constraint firstAttribute="width" constant="146" id="rvX-os-VU5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxW-aU-dH1">
+                                <rect key="frame" x="253" y="179" width="94" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="8tc-lk-Wbk"/>
+                                    <constraint firstAttribute="width" constant="94" id="jXq-2I-iOB"/>
+                                </constraints>
+                                <state key="normal" title="Make Deposit"/>
+                                <connections>
+                                    <action selector="MakeDeposit:" destination="z58-Mp-41Z" eventType="touchUpInside" id="gKn-xy-glu"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="msE-2X-fKs" firstAttribute="centerX" secondItem="2wq-x1-jZU" secondAttribute="centerX" id="7gF-KV-s6m"/>
+                            <constraint firstItem="msE-2X-fKs" firstAttribute="top" secondItem="jpG-cj-175" secondAttribute="bottom" constant="16" id="8HX-O4-srb"/>
+                            <constraint firstItem="fxW-aU-dH1" firstAttribute="top" secondItem="msE-2X-fKs" secondAttribute="bottom" constant="37" id="9xr-7h-a9y"/>
+                            <constraint firstItem="sIH-S0-YZ5" firstAttribute="centerX" secondItem="2wq-x1-jZU" secondAttribute="centerX" id="BVY-bc-nbY"/>
+                            <constraint firstItem="jpG-cj-175" firstAttribute="centerX" secondItem="2wq-x1-jZU" secondAttribute="centerX" id="NXA-31-YS4"/>
+                            <constraint firstItem="fxW-aU-dH1" firstAttribute="centerX" secondItem="2wq-x1-jZU" secondAttribute="centerX" id="t1f-hX-QYF"/>
+                            <constraint firstItem="sIH-S0-YZ5" firstAttribute="top" secondItem="t4q-xy-gvu" secondAttribute="bottom" constant="26" id="vXd-hh-Clz"/>
+                            <constraint firstItem="jpG-cj-175" firstAttribute="top" secondItem="sIH-S0-YZ5" secondAttribute="bottom" constant="8" id="zUD-y7-yV1"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Deposit" image="transactions.png" selectedImage="transactions.png" id="O7R-g9-cRX"/>
+                    <connections>
+                        <outlet property="DepositAmount" destination="msE-2X-fKs" id="c4p-Ie-t8F"/>
+                        <outlet property="DepositError" destination="jpG-cj-175" id="aAR-Bo-GNx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZtS-82-bbf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="697" y="2966"/>
+        </scene>
+        <!--Payment Controller-->
+        <scene sceneID="WMP-fY-hiM">
+            <objects>
+                <viewController storyboardIdentifier="PaymentView" id="25U-Rx-5uC" customClass="PaymentController" customModule="Bank" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7N5-Ie-X8L"/>
+                        <viewControllerLayoutGuide type="bottom" id="sRB-sU-bCW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eSC-xr-duH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make payment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYA-V7-D2B">
+                                <rect key="frame" x="244" y="37" width="113" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="113" id="Z8V-xZ-k7T"/>
+                                    <constraint firstAttribute="height" constant="21" id="sxf-bR-6QM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7ca-2V-Y4I">
+                                <rect key="frame" x="252" y="136" width="97" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="3LJ-2u-B68"/>
+                                    <constraint firstAttribute="width" constant="97" id="eag-lf-5U7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipient:" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dd-0l-swn">
+                                <rect key="frame" x="222" y="77" width="157" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="157" id="ZkY-Kc-faj"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="aRk-Gl-agW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OdF-jJ-q04">
+                                <rect key="frame" x="250" y="244" width="101" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="101" id="TXO-LV-9Go"/>
+                                    <constraint firstAttribute="height" constant="30" id="zaq-Cy-h1T"/>
+                                </constraints>
+                                <state key="normal" title="Make payment"/>
+                                <connections>
+                                    <action selector="SubmitPayment:" destination="25U-Rx-5uC" eventType="touchUpInside" id="tVX-ka-q4Z"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fl5-dL-a7g">
+                                <rect key="frame" x="222" y="189" width="157" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="89q-gm-49L"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="157" id="Lie-id-X8s"/>
+                                    <constraint firstAttribute="height" constant="21" id="Y1h-Lr-MHo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7ca-2V-Y4I" firstAttribute="top" secondItem="6dd-0l-swn" secondAttribute="bottom" constant="38" id="C5v-oD-8Xc"/>
+                            <constraint firstItem="7ca-2V-Y4I" firstAttribute="centerX" secondItem="eSC-xr-duH" secondAttribute="centerX" id="F9t-5e-gf4"/>
+                            <constraint firstItem="OdF-jJ-q04" firstAttribute="top" secondItem="fl5-dL-a7g" secondAttribute="bottom" constant="34" id="ToR-FY-af1"/>
+                            <constraint firstItem="fl5-dL-a7g" firstAttribute="centerX" secondItem="eSC-xr-duH" secondAttribute="centerX" id="Xjy-hE-G1Z"/>
+                            <constraint firstItem="fl5-dL-a7g" firstAttribute="top" secondItem="7ca-2V-Y4I" secondAttribute="bottom" constant="23" id="hEH-ZI-G1U"/>
+                            <constraint firstItem="OdF-jJ-q04" firstAttribute="centerX" secondItem="eSC-xr-duH" secondAttribute="centerX" id="nR1-T2-KRz"/>
+                            <constraint firstItem="6dd-0l-swn" firstAttribute="top" secondItem="nYA-V7-D2B" secondAttribute="bottom" constant="19" id="qod-8b-FeY"/>
+                            <constraint firstItem="6dd-0l-swn" firstAttribute="centerX" secondItem="eSC-xr-duH" secondAttribute="centerX" id="t0O-tZ-T10"/>
+                            <constraint firstItem="nYA-V7-D2B" firstAttribute="top" secondItem="7N5-Ie-X8L" secondAttribute="bottom" constant="17" id="uOS-TT-do0"/>
+                            <constraint firstItem="nYA-V7-D2B" firstAttribute="centerX" secondItem="eSC-xr-duH" secondAttribute="centerX" id="y5D-87-zmw"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="ErrorLabel" destination="fl5-dL-a7g" id="6FY-Sb-gs0"/>
+                        <outlet property="PaymentAmount" destination="7ca-2V-Y4I" id="5TT-tp-pqN"/>
+                        <outlet property="RecipientLabel" destination="6dd-0l-swn" id="XYk-0k-nnl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FHj-ad-Luy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1352" y="3188"/>
+        </scene>
+        <!--Account-->
+        <scene sceneID="76B-aM-SDx">
+            <objects>
+                <viewController storyboardIdentifier="AccountDetail" id="QJa-Bh-bTp" customClass="AccountSummaryViewController" customModule="Bank" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sLd-PV-hf7"/>
+                        <viewControllerLayoutGuide type="bottom" id="PcF-vZ-1hy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hSa-g7-r8C">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balance:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BH3-gg-VPl">
+                                <rect key="frame" x="267" y="36" width="66" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="66" id="fqQ-3Z-oZ9"/>
+                                    <constraint firstAttribute="height" constant="21" id="yiN-Og-XJd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Amount]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfc-Kl-kgM">
+                                <rect key="frame" x="229" y="81" width="142" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="142" id="03W-fD-ZuT"/>
+                                    <constraint firstAttribute="height" constant="21" id="tWT-x4-2wH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ThQ-gy-cGu">
+                                <rect key="frame" x="246" y="144" width="108" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="YFc-hW-9NP"/>
+                                    <constraint firstAttribute="width" constant="108" id="zpX-Ma-Ubl"/>
+                                </constraints>
+                                <state key="normal" title="Update balance"/>
+                                <connections>
+                                    <action selector="UpdateBalance:" destination="QJa-Bh-bTp" eventType="touchUpInside" id="OxE-Dl-qLT"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BH3-gg-VPl" firstAttribute="centerX" secondItem="hSa-g7-r8C" secondAttribute="centerX" id="0Jh-58-XOI"/>
+                            <constraint firstItem="hfc-Kl-kgM" firstAttribute="centerX" secondItem="hSa-g7-r8C" secondAttribute="centerX" id="KSE-gH-tDz"/>
+                            <constraint firstItem="hfc-Kl-kgM" firstAttribute="top" secondItem="BH3-gg-VPl" secondAttribute="bottom" constant="24" id="aHf-p0-JBs"/>
+                            <constraint firstItem="BH3-gg-VPl" firstAttribute="top" secondItem="sLd-PV-hf7" secondAttribute="bottom" constant="16" id="f8a-Ed-uZ9"/>
+                            <constraint firstItem="ThQ-gy-cGu" firstAttribute="top" secondItem="hfc-Kl-kgM" secondAttribute="bottom" constant="42" id="jXU-5m-Eqr"/>
+                            <constraint firstItem="ThQ-gy-cGu" firstAttribute="centerX" secondItem="hSa-g7-r8C" secondAttribute="centerX" id="rlh-KT-EfM"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Account" image="account.png" selectedImage="account.png" id="7rA-tO-mze"/>
+                    <connections>
+                        <outlet property="AmountLabel" destination="hfc-Kl-kgM" id="oEd-Lz-yIV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="btl-jG-Xum" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1352" y="1833"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="e9X-KJ-jDx">
+            <objects>
+                <tabBarController storyboardIdentifier="AccountLanding" id="76j-UX-h6v" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="RoZ-Xf-PLK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="QJa-Bh-bTp" kind="relationship" relationship="viewControllers" id="BW4-fO-JSs"/>
+                        <segue destination="4H8-am-24s" kind="relationship" relationship="viewControllers" id="gnR-Yp-FJd"/>
+                        <segue destination="z58-Mp-41Z" kind="relationship" relationship="viewControllers" id="9Vo-nc-a6Q"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bbh-w9-gt7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="570" y="2127"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="DN7-Mp-7Kh">

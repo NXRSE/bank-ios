@@ -19,6 +19,11 @@
 		3E3161911C07EA3C0090664F /* account.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E3161901C07EA3C0090664F /* account.png */; };
 		3E4F0AA51C0DB8A800E344C4 /* finance-street.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E4F0AA41C0DB8A800E344C4 /* finance-street.png */; };
 		3E4F0AA71C0DB8FE00E344C4 /* logo-tag.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E4F0AA61C0DB8FE00E344C4 /* logo-tag.png */; };
+		3E9BEE321C424E3000191485 /* Recipient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9BEE311C424E3000191485 /* Recipient.swift */; };
+		3E9BEE341C42503200191485 /* RecipientData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9BEE331C42503200191485 /* RecipientData.swift */; };
+		3E9BEE361C4252BD00191485 /* RecipientListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9BEE351C4252BD00191485 /* RecipientListController.swift */; };
+		3E9BEE3A1C42574800191485 /* PaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9BEE391C42574800191485 /* PaymentController.swift */; };
+		3E9BEE3C1C427E0400191485 /* DepositController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9BEE3B1C427E0400191485 /* DepositController.swift */; };
 		3ED233871C105C7200CC5714 /* TCPIPSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED233861C105C7200CC5714 /* TCPIPSocket.swift */; };
 		3ED233891C11235A00CC5714 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED233881C11235A00CC5714 /* LoginViewController.swift */; };
 		3ED2338B1C11236900CC5714 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2338A1C11236900CC5714 /* SignUpViewController.swift */; };
@@ -41,6 +46,11 @@
 		3E3161901C07EA3C0090664F /* account.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = account.png; sourceTree = "<group>"; };
 		3E4F0AA41C0DB8A800E344C4 /* finance-street.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "finance-street.png"; sourceTree = "<group>"; };
 		3E4F0AA61C0DB8FE00E344C4 /* logo-tag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-tag.png"; sourceTree = "<group>"; };
+		3E9BEE311C424E3000191485 /* Recipient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipient.swift; sourceTree = "<group>"; };
+		3E9BEE331C42503200191485 /* RecipientData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipientData.swift; sourceTree = "<group>"; };
+		3E9BEE351C4252BD00191485 /* RecipientListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipientListController.swift; sourceTree = "<group>"; };
+		3E9BEE391C42574800191485 /* PaymentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentController.swift; sourceTree = "<group>"; };
+		3E9BEE3B1C427E0400191485 /* DepositController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepositController.swift; sourceTree = "<group>"; };
 		3ED233861C105C7200CC5714 /* TCPIPSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TCPIPSocket.swift; path = "TCPIPSocket.Swift-master/TCPIPSocket/TCPIPSocket.swift"; sourceTree = SOURCE_ROOT; };
 		3ED233881C11235A00CC5714 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3ED2338A1C11236900CC5714 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +94,11 @@
 				3E3161741C07E7190090664F /* AppDelegate.swift */,
 				3E3161761C07E7190090664F /* ViewController.swift */,
 				3E3161781C07E7190090664F /* Main.storyboard */,
+				3E9BEE311C424E3000191485 /* Recipient.swift */,
+				3E9BEE331C42503200191485 /* RecipientData.swift */,
+				3E9BEE351C4252BD00191485 /* RecipientListController.swift */,
+				3E9BEE391C42574800191485 /* PaymentController.swift */,
+				3E9BEE3B1C427E0400191485 /* DepositController.swift */,
 				3E31617E1C07E7190090664F /* Assets.xcassets */,
 				3E3161801C07E7190090664F /* LaunchScreen.storyboard */,
 				3E3161831C07E7190090664F /* Info.plist */,
@@ -196,8 +211,13 @@
 				3ED2338F1C11AF5D00CC5714 /* TCPClient.swift in Sources */,
 				3ED2338D1C11237F00CC5714 /* AccountSummaryViewController.swift in Sources */,
 				3ED2338B1C11236900CC5714 /* SignUpViewController.swift in Sources */,
+				3E9BEE3C1C427E0400191485 /* DepositController.swift in Sources */,
 				3E3161771C07E7190090664F /* ViewController.swift in Sources */,
+				3E9BEE321C424E3000191485 /* Recipient.swift in Sources */,
+				3E9BEE341C42503200191485 /* RecipientData.swift in Sources */,
+				3E9BEE361C4252BD00191485 /* RecipientListController.swift in Sources */,
 				3ED233871C105C7200CC5714 /* TCPIPSocket.swift in Sources */,
+				3E9BEE3A1C42574800191485 /* PaymentController.swift in Sources */,
 				3E3161751C07E7190090664F /* AppDelegate.swift in Sources */,
 				3ED233891C11235A00CC5714 /* LoginViewController.swift in Sources */,
 				3E31617D1C07E7190090664F /* Bank.xcdatamodeld in Sources */,

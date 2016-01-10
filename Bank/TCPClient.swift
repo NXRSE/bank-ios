@@ -56,15 +56,48 @@ final class TCPClient {
         
     }
     
+    class func doCheckToken (token: String) -> String {
+        
+        let checkTokenString = token+"~appauth~1"
+        
+        return doTCPCall(checkTokenString)
+        
+    }
+    
     class func doListAccounts (token: String) -> String {
         let listAccountsString = token+"~acmt~1000";
         
         return doTCPCall(listAccountsString)
     }
     
+    class func doListAccount (token: String) -> String {
+        let listAccountsString = token+"~acmt~1001";
+        
+        return doTCPCall(listAccountsString)
+    }
+    
+    class func doMakePayment (token: String, senderAccountNumber: String, recipientAccountNumber: String, senderBankNumber: String, recipientBankNumber: String,  paymentAmount: Float) -> String {
+        // @TODO Leave bank number out for now as all accounts are on the same bank
+        
+        // Convert float to string
+        let paymentString = paymentAmount.description
+        let paymentsString = token+"~pain~1~"+senderAccountNumber+"@~"+recipientAccountNumber+"@~"+paymentString;
+        
+        return doTCPCall(paymentsString)
+    }
+    
+    class func doMakeDeposit (token: String, paymentAmount: Float, accountNumber: String, bankNumber: String) -> String {
+        let listAccountsString = token+"~pain~1000~"+accountNumber+"@~"+paymentAmount.description;
+        
+        return doTCPCall(listAccountsString)
+    }
+    
+    
     class func doTCPCall (command: String) -> String{
         let s   =   TCPIPSocket()
         let f   =   NSFileHandle(fileDescriptor: s.socketDescriptor)
+        
+        print(command)
         
         // @TODO: Does not work over TLS
         // http://stackoverflow.com/a/30648011
@@ -83,6 +116,7 @@ final class TCPClient {
         response = response.stringByReplacingOccurrencesOfString("\n", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
         print(response)
+        // @TODO: Check token here, in one place
         return response
     }
 }

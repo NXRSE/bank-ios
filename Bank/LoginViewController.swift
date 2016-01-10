@@ -22,14 +22,42 @@ class LoginViewController: UIViewController {
         let password = defaults.stringForKey("userPassword");
         if (password != nil) {
             if passwordText.text == password! {
-                // Load view
-                let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountSummary")
-                self.showViewController(vc as! UIViewController, sender: vc)
+                let token = NSUserDefaults.standardUserDefaults().stringForKey("userToken")!;
+                let tokenTest = TCPClient.doCheckToken(token)
+                
+                // Test token
+                if (tokenTest == "0~Token not valid" || tokenTest == "0~Incorrect token") {
+                    
+                    // Log in for user and get new token
+                    let userID = NSUserDefaults.standardUserDefaults().stringForKey("userID")!;
+                    let password = NSUserDefaults.standardUserDefaults().stringForKey("password")!;
+                    
+                    let accountDetails = UserAccount(userID: userID, userPassword: password)
+                    
+                    // Log in
+                    let token = TCPClient.doLogin(accountDetails)
+                    if token.characters.count < 0 {
+                        let alertController = UIAlertController(title: "Bank", message:
+                            "Could not get new token", preferredStyle: UIAlertControllerStyle.Alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                        
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                        return
+                    }
+                    
+                    // Set token if not blank
+                    NSUserDefaults.standardUserDefaults().setObject(token, forKey: "userToken")
+                } else {
+                    // Load view
+                    let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountLanding")
+                    self.showViewController(vc as! UIViewController, sender: vc)
+                }
             } else {
                 errorLabel.text = "Password incorrect"
                 return
             }
         } else {
+            
             // Go to sign up screen
             // Load view
             let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("SignUpView")
