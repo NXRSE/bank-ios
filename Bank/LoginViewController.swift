@@ -40,7 +40,7 @@ class LoginViewController: UIViewController {
                     
                     // Log in for user and get new token
                     let userID = NSUserDefaults.standardUserDefaults().stringForKey("userID")!;
-                    let password = NSUserDefaults.standardUserDefaults().stringForKey("password")!;
+                    let password = NSUserDefaults.standardUserDefaults().stringForKey("userPassword")!;
                     
                     let accountDetails = UserAccount(userID: userID, userPassword: password)
                     
@@ -57,6 +57,10 @@ class LoginViewController: UIViewController {
                     
                     // Set token if not blank
                     NSUserDefaults.standardUserDefaults().setObject(token, forKey: "userToken")
+                    
+                    // Load view
+                    let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountLanding")
+                    self.showViewController(vc as! UIViewController, sender: vc)
                 } else {
                     // Load view
                     let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountLanding")
