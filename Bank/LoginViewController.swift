@@ -23,6 +23,16 @@ class LoginViewController: UIViewController {
         if (password != nil) {
             if passwordText.text == password! {
                 let token = NSUserDefaults.standardUserDefaults().stringForKey("userToken")!;
+                if (token.characters.count == 0) {
+                    let alertController = UIAlertController(title: "Bank", message:
+                        "Could not get new token", preferredStyle: UIAlertControllerStyle.Alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                    
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    return
+
+                }
+                
                 let tokenTest = TCPClient.doCheckToken(token)
                 
                 // Test token

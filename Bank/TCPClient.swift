@@ -103,7 +103,8 @@ final class TCPClient {
         // http://stackoverflow.com/a/30648011
         
         // Vagrant: 192.168.33.110, port:
-        s.connect(TCPIPSocketAddress(127, 0, 0, 1), 6600)
+        // bank.ksred.me: 109.237.24.211
+        s.connect(TCPIPSocketAddress(109, 237, 24, 211), 6600)
         //loginString = "0~appauth~2~52d27bde-9418-4a5d-8528-3fb32e1a5d69~TestPassword"
         f.writeData((command as NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
         let d   =   f.readDataToEndOfFile()
