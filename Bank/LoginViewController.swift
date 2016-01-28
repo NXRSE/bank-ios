@@ -27,8 +27,7 @@ class LoginViewController: UIViewController {
             errorLabel.text = "Please input password"
             return
         }
-        print(userID)
-        print(password)
+        
         if (password != nil && userID != nil) {
             if passwordText.text == password! {
                 let token = NSUserDefaults.standardUserDefaults().stringForKey("userToken")!;
