@@ -12,15 +12,23 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var idNumberField: UITextField!
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
     
     @IBAction func logInButton(sender: AnyObject) {
-        let defaults = NSUserDefaults.standardUserDefaults()
         
-        // Check password
-        let password = defaults.stringForKey("userPassword");
-        if (password != nil) {
+        // Check defaults
+        let userID = NSUserDefaults.standardUserDefaults().stringForKey("userID");
+        let password = NSUserDefaults.standardUserDefaults().stringForKey("userPassword");
+        
+        if (password! == "") {
+            // @TODO Check to see if this fails
+            errorLabel.text = "Please input password"
+            return
+        }
+        
+        if (password != nil && userID != nil) {
             if passwordText.text == password! {
                 let token = NSUserDefaults.standardUserDefaults().stringForKey("userToken")!;
                 if (token.characters.count == 0) {
@@ -30,7 +38,6 @@ class LoginViewController: UIViewController {
                     
                     self.presentViewController(alertController, animated: true, completion: nil)
                     return
-
                 }
                 
                 let tokenTest = TCPClient.doCheckToken(token)
@@ -71,15 +78,47 @@ class LoginViewController: UIViewController {
                 return
             }
         } else {
+            idNumberField.hidden = false;
+            let idNumber = idNumberField.text;
+            if (idNumber! == "") {
+                errorLabel.text = "Please input ID Number"
+                return
+            }
             
-            // Go to sign up screen
-            // Load view
-            let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("SignUpView")
-            self.showViewController(vc as! UIViewController, sender: vc)
+            // Check if account exists with ID Number
+            let idResult = TCPClient.doCheckAccountByID(idNumber!)
+            if (idResult != "0~Account does not exist") {
+                // Set userid
+                NSUserDefaults.standardUserDefaults().setObject(idResult, forKey: "userID")
+                // Do login
+                let accountDetails = UserAccount(userID: idResult, userPassword: password!)
+                
+                // Log in
+                let token = TCPClient.doLogin(accountDetails)
+                if token.characters.count < 0 {
+                    let alertController = UIAlertController(title: "Bank", message:
+                        "Could not get new token", preferredStyle: UIAlertControllerStyle.Alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                    
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    return
+                }
+                
+                // Set token if not blank
+                NSUserDefaults.standardUserDefaults().setObject(token, forKey: "userToken")
+                
+                // Load view
+                let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountLanding")
+                self.showViewController(vc as! UIViewController, sender: vc)
+
+            } else {
+                // Go to sign up screen
+                // Load view
+                let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("SignUpView")
+                self.showViewController(vc as! UIViewController, sender: vc)
+            }
+            
         }
-        
-        
-        
     }
     
     override func viewDidLoad() {
