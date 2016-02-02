@@ -167,6 +167,11 @@
 					3E3161701C07E7190090664F = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = XZFTG3HJQT;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};

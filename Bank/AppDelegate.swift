@@ -17,6 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let types: UIUserNotificationType = [ UIUserNotificationType.Badge, UIUserNotificationType.Alert, UIUserNotificationType.Sound ]
+        
+        let settings: UIUserNotificationSettings = UIUserNotificationSettings( forTypes: types, categories: nil )
+        
+        application.registerUserNotificationSettings( settings )
+        application.registerForRemoteNotifications()
+        
         return true
     }
 
@@ -106,6 +114,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
+    // PUSH
+    
+    // Called when a notification is received and the app is in the
+    // foreground (or if the app was in the background and the user clicks on the notification).
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        // display the userInfo
+        if let notification = userInfo["aps"] as? NSDictionary,
+            let alert = notification["alert"] as? String {
+                let alertCtrl = UIAlertController(title: "Time Entry", message: alert as String, preferredStyle: UIAlertControllerStyle.Alert)
+                alertCtrl.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                // Find the presented VC...
+                var presentedVC = self.window?.rootViewController
+                while (presentedVC!.presentedViewController != nil)  {
+                    presentedVC = presentedVC!.presentedViewController
+                }
+                presentedVC!.presentViewController(alertCtrl, animated: true, completion: nil)
+                
+                // call the completion handler
+                // -- pass in NoData, since no new data was fetched from the server.
+                // @TODO Call method to do update depending on notification
+                completionHandler(UIBackgroundFetchResult.NoData)
+        }
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let deviceTokenStr = convertDeviceTokenToString(deviceToken)
+        // ...register device token with our Time Entry API server via REST
+        print("Device token: "+deviceTokenStr)
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print("Device token for push notifications: FAIL -- ")
+        print(error.description)
+    }
+    
+    private func convertDeviceTokenToString(deviceToken:NSData) -> String {
+        //  Convert binary Device Token to a String (and remove the <,> and white space charaters).
+        var deviceTokenStr = deviceToken.description.stringByReplacingOccurrencesOfString(">", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        deviceTokenStr = deviceTokenStr.stringByReplacingOccurrencesOfString("<", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        deviceTokenStr = deviceTokenStr.stringByReplacingOccurrencesOfString(" ", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        
+        // Our API returns token in all uppercase, regardless how it was originally sent.
+        // To make the two consistent, I am uppercasing the token string here.
+        deviceTokenStr = deviceTokenStr.uppercaseString
+        return deviceTokenStr
+    }
+    
 }
 
