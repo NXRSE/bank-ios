@@ -9,14 +9,6 @@
 import Foundation
 
 
-
-
-
-
-
-
-
-
 ///	Regular type for IPv4 address.
 struct TCPIPSocketAddress {
 	//	Compiler doesn't like this code. 
@@ -39,15 +31,6 @@ struct TCPIPSocketAddress {
 	}
 	private let	_number:UInt32		///	Uses host-endian.
 }
-
-
-
-
-
-
-
-
-
 
 ///	Make a `NSFileHandle` to perform I/O to this socket.
 ///	See `socketDescriptor` for details.
@@ -114,38 +97,6 @@ final class TCPIPSocket {
 //}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ///	MARK:
 ///	MARK:	Extensions
 
@@ -198,46 +149,6 @@ extension TCPIPSocket {
 		return	NSFileHandle(fileDescriptor: socketDescriptor, closeOnDealloc: false)
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ///	MARK:
 ///	MARK:	Darwin Utility
