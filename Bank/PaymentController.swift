@@ -10,6 +10,7 @@ import UIKit
 
 class PaymentController: UIViewController {
 
+    @IBOutlet weak var PaymentButtonOutlet: UIButton!
     @IBOutlet weak var PaymentAmount: UITextField!
     @IBOutlet weak var ErrorLabel: UILabel!
     @IBOutlet weak var RecipientLabel: UILabel!
@@ -51,6 +52,12 @@ class PaymentController: UIViewController {
     override func viewDidLoad() {
         let recipientName = NSUserDefaults.standardUserDefaults().stringForKey("paymentRecipientAccountHolderName")!
         RecipientLabel.text = "Recipient: " + recipientName
+        
+        //paymentButtonOutlet
+        PaymentButtonOutlet.backgroundColor = UIColor.clearColor()
+        PaymentButtonOutlet.layer.cornerRadius = PaymentButtonOutlet.frame.size.width/2
+        PaymentButtonOutlet.layer.borderWidth = 1
+        PaymentButtonOutlet.layer.borderColor = UIColor.blackColor().CGColor
     }
     
     override func didReceiveMemoryWarning() {

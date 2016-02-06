@@ -10,6 +10,7 @@ import UIKit
 
 class RecipientListController: UITableViewController {
 
+    @IBOutlet weak var TopLabelOutlet: UILabel!
     var recipients:[Recipient] = recipientData
     
     override func viewDidLoad() {
@@ -20,6 +21,8 @@ class RecipientListController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        //TopLabelOutlet
     }
 
     override func didReceiveMemoryWarning() {
