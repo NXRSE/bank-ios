@@ -11,6 +11,9 @@ import UIKit
 
 class AccountSummaryViewController: UIViewController {
     
+    
+    @IBOutlet weak var updateBalanceButton: UIButton!
+    
     @IBAction func UpdateBalance(sender: AnyObject) {
         //410026b3-aabd-4ea1-9158-a49af6c0e077~acmt~1000
         let token = NSUserDefaults.standardUserDefaults().stringForKey("userToken")!;
@@ -51,16 +54,33 @@ class AccountSummaryViewController: UIViewController {
             
             if (recipient.accountHolderName != "") {
                 // Update balance
-                AmountLabel.text = recipient.availableBalance.description
+                let availableBalance = NSString(format: "%.2f", recipient.availableBalance) as String
+                AmountLabel.text = availableBalance
             }
         }
 
     }
     
     @IBOutlet weak var AmountLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        // Styling
+        //AmountLabel
+        AmountLabel.backgroundColor = UIColor.clearColor()
+        AmountLabel.layer.borderWidth = 2
+        AmountLabel.layer.cornerRadius = AmountLabel.frame.size.width/2
+        AmountLabel.layer.borderColor = UIColor.blackColor().CGColor
+        //updateBalanceButton
+        updateBalanceButton.backgroundColor = UIColor.clearColor()
+        updateBalanceButton.layer.cornerRadius = 0
+        updateBalanceButton.layer.borderWidth = 1
+        updateBalanceButton.layer.borderColor = UIColor.blackColor().CGColor
+        
+        
+        // end styling
         
         let flashMessage = NSUserDefaults.standardUserDefaults().stringForKey("flashMessage")
         if (flashMessage?.characters.count > 0) {
@@ -113,7 +133,8 @@ class AccountSummaryViewController: UIViewController {
             
             if (recipient.accountHolderName != "") {
                 // Update balance
-                AmountLabel.text = recipient.availableBalance.description
+                let availableBalance = NSString(format: "%.2f", recipient.availableBalance) as String
+                AmountLabel.text = availableBalance
             }
         }
         

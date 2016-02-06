@@ -12,6 +12,8 @@ import UIKit
 class SignUpViewController: UIViewController {
 
     
+    @IBOutlet weak var signupButton: UIButton!
+    @IBOutlet weak var setPasswordButton: UIButton!
     // Sign up
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -135,6 +137,21 @@ class SignUpViewController: UIViewController {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
         
+        // Set styles
+        signupButton.backgroundColor = UIColor.clearColor()
+        //signupButton.layer.cornerRadius = 5
+        signupButton.layer.borderWidth = 1
+        signupButton.layer.borderColor = UIColor.whiteColor().CGColor
+        //setPasswordButton.backgroundColor = UIColor.clearColor()
+        //setPasswordButton.layer.cornerRadius = 5
+        //setPasswordButton.layer.borderWidth = 1
+        //setPasswordButton.layer.borderColor = UIColor.whiteColor().CGColor
+        
+        // Swipes
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        leftSwipe.direction = .Left
+        view.addGestureRecognizer(leftSwipe)
+        
     }
     
     //Calls this function when the tap is recognized.
@@ -148,6 +165,12 @@ class SignUpViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
  
+    func handleSwipes(sender:UISwipeGestureRecognizer) {
+        if (sender.direction == .Left) {
+            let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("MainController")
+            self.showViewController(vc as! UIViewController, sender: vc)
+        }
+    }
     
     
 }

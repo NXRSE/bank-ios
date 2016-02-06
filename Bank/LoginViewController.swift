@@ -12,6 +12,8 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var loginOutlet: UIButton!
+    @IBOutlet weak var loginOutletButton: UILabel!
     @IBOutlet weak var idNumberField: UITextField!
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
@@ -124,6 +126,17 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //loginOutletButton
+        loginOutlet.backgroundColor = UIColor.clearColor()
+        //loginOutlet.layer.cornerRadius = 5
+        loginOutlet.layer.borderWidth = 1
+        loginOutlet.layer.borderColor = UIColor.whiteColor().CGColor
+        
+        // Swipes
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        leftSwipe.direction = .Left
+        view.addGestureRecognizer(leftSwipe)
        
     }
     
@@ -132,5 +145,10 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
+    func handleSwipes(sender:UISwipeGestureRecognizer) {
+        if (sender.direction == .Left) {
+            let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("MainController")
+            self.showViewController(vc as! UIViewController, sender: vc)
+        }
+    }
 }

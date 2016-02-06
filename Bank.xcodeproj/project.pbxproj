@@ -25,6 +25,10 @@
 		3E9BEE361C4252BD00191485 /* RecipientListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9BEE351C4252BD00191485 /* RecipientListController.swift */; };
 		3E9BEE3A1C42574800191485 /* PaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9BEE391C42574800191485 /* PaymentController.swift */; };
 		3E9BEE3C1C427E0400191485 /* DepositController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9BEE3B1C427E0400191485 /* DepositController.swift */; };
+		3EC2B7981C664916009D5D80 /* logo-hor-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC2B7971C664916009D5D80 /* logo-hor-white.png */; };
+		3EC2B79A1C664923009D5D80 /* cubes-flat-brush-dark.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EC2B7991C664923009D5D80 /* cubes-flat-brush-dark.jpg */; };
+		3EC2B79C1C664A4C009D5D80 /* background-pattern-sm.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EC2B79B1C664A4C009D5D80 /* background-pattern-sm.jpg */; };
+		3EC2B79E1C664BA0009D5D80 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC2B79D1C664BA0009D5D80 /* MainController.swift */; };
 		3ED233871C105C7200CC5714 /* TCPIPSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED233861C105C7200CC5714 /* TCPIPSocket.swift */; };
 		3ED233891C11235A00CC5714 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED233881C11235A00CC5714 /* LoginViewController.swift */; };
 		3ED2338B1C11236900CC5714 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2338A1C11236900CC5714 /* SignUpViewController.swift */; };
@@ -53,6 +57,10 @@
 		3E9BEE351C4252BD00191485 /* RecipientListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipientListController.swift; sourceTree = "<group>"; };
 		3E9BEE391C42574800191485 /* PaymentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentController.swift; sourceTree = "<group>"; };
 		3E9BEE3B1C427E0400191485 /* DepositController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepositController.swift; sourceTree = "<group>"; };
+		3EC2B7971C664916009D5D80 /* logo-hor-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo-hor-white.png"; path = "../../../Design/Logos/logo-hor-white.png"; sourceTree = "<group>"; };
+		3EC2B7991C664923009D5D80 /* cubes-flat-brush-dark.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "cubes-flat-brush-dark.jpg"; path = "../../../New design web landing/cubes-flat-brush-dark.jpg"; sourceTree = "<group>"; };
+		3EC2B79B1C664A4C009D5D80 /* background-pattern-sm.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "background-pattern-sm.jpg"; path = "../../../Design/App layout/cubes/background-pattern-sm.jpg"; sourceTree = "<group>"; };
+		3EC2B79D1C664BA0009D5D80 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		3ED233861C105C7200CC5714 /* TCPIPSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TCPIPSocket.swift; path = "TCPIPSocket.Swift-master/TCPIPSocket/TCPIPSocket.swift"; sourceTree = SOURCE_ROOT; };
 		3ED233881C11235A00CC5714 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3ED2338A1C11236900CC5714 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +118,7 @@
 				3ED2338C1C11237F00CC5714 /* AccountSummaryViewController.swift */,
 				3ED2338E1C11AF5D00CC5714 /* TCPClient.swift */,
 				3E0E23CF1C5A2DD000510B41 /* TLSTest.swift */,
+				3EC2B79D1C664BA0009D5D80 /* MainController.swift */,
 			);
 			path = Bank;
 			sourceTree = "<group>";
@@ -128,6 +137,9 @@
 		3E4F0AA31C0DB87E00E344C4 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				3EC2B79B1C664A4C009D5D80 /* background-pattern-sm.jpg */,
+				3EC2B7991C664923009D5D80 /* cubes-flat-brush-dark.jpg */,
+				3EC2B7971C664916009D5D80 /* logo-hor-white.png */,
 				3E4F0AA61C0DB8FE00E344C4 /* logo-tag.png */,
 				3E4F0AA41C0DB8A800E344C4 /* finance-street.png */,
 			);
@@ -193,6 +205,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EC2B79A1C664923009D5D80 /* cubes-flat-brush-dark.jpg in Resources */,
 				3E3161821C07E7190090664F /* LaunchScreen.storyboard in Resources */,
 				3E31617F1C07E7190090664F /* Assets.xcassets in Resources */,
 				3E31618B1C07E9CB0090664F /* home.png in Resources */,
@@ -200,7 +213,9 @@
 				3E31617A1C07E7190090664F /* Main.storyboard in Resources */,
 				3E4F0AA51C0DB8A800E344C4 /* finance-street.png in Resources */,
 				3E4F0AA71C0DB8FE00E344C4 /* logo-tag.png in Resources */,
+				3EC2B79C1C664A4C009D5D80 /* background-pattern-sm.jpg in Resources */,
 				3E3161911C07EA3C0090664F /* account.png in Resources */,
+				3EC2B7981C664916009D5D80 /* logo-hor-white.png in Resources */,
 				3E31618D1C07EA010090664F /* contacts.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,6 +231,7 @@
 				3ED2338D1C11237F00CC5714 /* AccountSummaryViewController.swift in Sources */,
 				3ED2338B1C11236900CC5714 /* SignUpViewController.swift in Sources */,
 				3E9BEE3C1C427E0400191485 /* DepositController.swift in Sources */,
+				3EC2B79E1C664BA0009D5D80 /* MainController.swift in Sources */,
 				3E3161771C07E7190090664F /* ViewController.swift in Sources */,
 				3E9BEE321C424E3000191485 /* Recipient.swift in Sources */,
 				3E9BEE341C42503200191485 /* RecipientData.swift in Sources */,

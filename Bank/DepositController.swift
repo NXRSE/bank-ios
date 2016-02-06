@@ -12,6 +12,7 @@ import UIKit
 class DepositController: UIViewController {
     
     // DEPOSITS
+    @IBOutlet weak var depositButton: UIButton!
     @IBOutlet weak var DepositAmount: UITextField!
     @IBOutlet weak var DepositError: UILabel!
     
@@ -41,4 +42,33 @@ class DepositController: UIViewController {
         self.showViewController(vc as! UIViewController, sender: vc)
         
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        depositButton.backgroundColor = UIColor.clearColor()
+        depositButton.layer.cornerRadius = depositButton.frame.size.width/2
+        depositButton.layer.borderWidth = 1
+        depositButton.layer.borderColor = UIColor.blackColor().CGColor
+        
+        //Looks for single or multiple taps.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    //Calls this function when the tap is recognized.
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+
+
 }
