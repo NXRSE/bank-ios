@@ -1,3 +1,4 @@
+![Bank logo](https://ksred.me/bank.png)
 # Bank - iOS app
 
 This mobile application is the client implementation for a [banking project](https://github.com/ksred/bank).
