@@ -37,18 +37,24 @@ struct Response: JSONJoy {
     }
 }
 
+struct HTTPResult {
+    var message: String?
+    var error: String?
+}
+
 let domain = "https://bank.ksred.me:8443"
 
 final class HTTPClient {
     
-    class func doLogin (account: UserAccount) -> String {
+    class func doLogin (account: UserAccount) -> HTTPResult {
+        
         let params = ["User": account.userID, "Password" : account.userPassword]
         return doHTTPCall (params, token: "", route: "/auth/login", method: "POST")
+        
     }
     
-    class func doCreateAccount (account: NewAccount) -> String {
+    class func doCreateAccount (account: NewAccount) -> HTTPResult {
         
-        //return doTCPCall(createAccountString)
         let params = [
             "AccountHolderGivenName": account.firstName,
             "AccountHolderFamilyName" : account.familyName,
@@ -66,7 +72,7 @@ final class HTTPClient {
         
     }
     
-    class func doCreateLogin (account: UserAccount) -> String {
+    class func doCreateLogin (account: UserAccount) -> HTTPResult {
         
         let params = [
             "User": account.userID,
@@ -76,35 +82,35 @@ final class HTTPClient {
         
     }
     
-    class func doCheckToken (token: String) -> String {
+    class func doCheckToken (token: String) -> HTTPResult {
         
         let params = ["":""]
         return doHTTPCall (params, token: token, route: "/auth", method: "POST")
         
     }
     
-    class func doCheckAccountByID (token: String, idNumber: String) -> String {
+    class func doCheckAccountByID (token: String, idNumber: String) -> HTTPResult {
         
         let params = ["":""]
         return doHTTPCall (params, token: token, route: "/account/"+idNumber, method: "GET")
         
     }
     
-    class func doListAccounts (token: String) -> String {
+    class func doListAccounts (token: String) -> HTTPResult {
         
         let params = ["":""]
         return doHTTPCall (params, token: token, route: "/account/all", method: "GET")
         
     }
     
-    class func doListAccount (token: String) -> String {
+    class func doListAccount (token: String) -> HTTPResult {
         
         let params = ["":""]
         return doHTTPCall (params, token: token, route: "/account", method: "GET")
         
     }
     
-    class func doMakePayment (token: String, senderAccountNumber: String, recipientAccountNumber: String, senderBankNumber: String, recipientBankNumber: String,  paymentAmount: Float) -> String {
+    class func doMakePayment (token: String, senderAccountNumber: String, recipientAccountNumber: String, senderBankNumber: String, recipientBankNumber: String,  paymentAmount: Float) -> HTTPResult {
         
         // @TODO Leave bank number out for now as all accounts are on the same bank
         // Convert float to string
@@ -119,7 +125,7 @@ final class HTTPClient {
         
     }
     
-    class func doMakeDeposit (token: String, paymentAmount: Float, accountNumber: String, bankNumber: String) -> String {
+    class func doMakeDeposit (token: String, paymentAmount: Float, accountNumber: String, bankNumber: String) -> HTTPResult {
         
         // Convert float to string
         let paymentString = paymentAmount.description
@@ -133,9 +139,10 @@ final class HTTPClient {
     }
     
     
-    class func doHTTPCall (params: [String:String], token: String, route: String, method: String) -> String{
-        var responseReturn = "";
+    class func doHTTPCall (params: [String:String], token: String, route: String, method: String) -> HTTPResult{
+        var responseReturn = HTTPResult(message : "", error : "");
         //let params = ["User": account.userID, "Password" : account.userPassword]
+        print("Making the call")
         print(params)
         do {
             var opt = try HTTP.POST(domain + route, parameters: params)
@@ -169,16 +176,16 @@ final class HTTPClient {
             opt.start { response in
                 let resp = Response(JSONDecoder(response.data))
                 if (response.error != nil) {
-                    responseReturn = resp.error!
+                    responseReturn.error = resp.error!
                     return
                 }
-                responseReturn = resp.error!
+                responseReturn.message = resp.result!
+                print("###########")
+                print(resp)
             }
         } catch {
-            responseReturn = ""
+            responseReturn.error = "An error occurred"
         }
-        
-        //return doTCPCall(checkTokenString)
         return responseReturn
     }
     

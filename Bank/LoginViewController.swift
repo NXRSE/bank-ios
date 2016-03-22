@@ -48,7 +48,7 @@ class LoginViewController: UIViewController {
                 let tokenTest = HTTPClient.doCheckToken(token)
                 
                 // Test token
-                if (tokenTest == 0 || tokenTest == -1) {
+                if ( tokenTest.error != "" ) {
                     
                     // Log in for user and get new token
                     let userID = NSUserDefaults.standardUserDefaults().stringForKey("userID")!;
@@ -58,9 +58,9 @@ class LoginViewController: UIViewController {
                     
                     // Log in
                     let token = HTTPClient.doLogin(accountDetails)
-                    if token == 0 {
+                    if token.error != "" {
                         let alertController = UIAlertController(title: "Bank", message:
-                            "Could not get new token", preferredStyle: UIAlertControllerStyle.Alert)
+                            "Could not get new token. "+token.error!, preferredStyle: UIAlertControllerStyle.Alert)
                         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
                         
                         self.presentViewController(alertController, animated: true, completion: nil)
@@ -68,7 +68,7 @@ class LoginViewController: UIViewController {
                     }
                     
                     // Set token if not blank
-                    NSUserDefaults.standardUserDefaults().setObject(token, forKey: "userToken")
+                    NSUserDefaults.standardUserDefaults().setObject(token.message, forKey: "userToken")
                     
                     // Load view
                     let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountLanding")
@@ -91,16 +91,19 @@ class LoginViewController: UIViewController {
             }
             
             // Check if account exists with ID Number
-            let idResult = TCPClient.doCheckAccountByID(idNumber!)
-            if (idResult != "0~Account does not exist") {
+            //@TODO Might have to remove the token from this API call, or find another way
+            //@TODO Get token
+            let token = ""
+            let idResult = HTTPClient.doCheckAccountByID(token, idNumber: idNumber!)
+            if (idResult.message != "0~Account does not exist") {
                 // Set userid
-                NSUserDefaults.standardUserDefaults().setObject(idResult, forKey: "userID")
+                NSUserDefaults.standardUserDefaults().setObject(idResult.message, forKey: "userID")
                 // Do login
-                let accountDetails = UserAccount(userID: idResult, userPassword: password!)
+                let accountDetails = UserAccount(userID: idResult.message, userPassword: password!)
                 
                 // Log in
                 let token = HTTPClient.doLogin(accountDetails)
-                if token == 0 {
+                if token.error != "" {
                     let alertController = UIAlertController(title: "Bank", message:
                         "Could not get new token", preferredStyle: UIAlertControllerStyle.Alert)
                     alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
@@ -110,7 +113,7 @@ class LoginViewController: UIViewController {
                 }
                 
                 // Set token if not blank
-                NSUserDefaults.standardUserDefaults().setObject(token, forKey: "userToken")
+                NSUserDefaults.standardUserDefaults().setObject(token.message, forKey: "userToken")
                 
                 // Load view
                 let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountLanding")
