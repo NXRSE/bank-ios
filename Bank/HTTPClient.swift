@@ -41,66 +41,122 @@ let domain = "https://bank.ksred.me:8443"
 
 final class HTTPClient {
     
-    class func doLogin (account: UserAccount) -> Int {
-        /*
-        let command = "0~appauth~2~"+account.userID+"~"+account.userPassword
-        var response = doTCPCall(command)
-        
-        // @TODO Make this less hacky
-        if response == "0~Authentication credentials invalid" {
-            response = ""
-        }
-        
-        return response
-*/
-        
-        //let checkTokenString = token+"~appauth~1"
-        var responseReturn = 0;
+    class func doLogin (account: UserAccount) -> String {
         let params = ["User": account.userID, "Password" : account.userPassword]
-        print(params)
-        do {
-            let opt = try HTTP.POST(domain + "/auth/login", parameters: params)
-            opt.start { response in
-                let resp = Response(JSONDecoder(response.data))
-                if (response.error != nil) {
-                    responseReturn = 0 // -1
-                    return
-                }
-                responseReturn = 1
-            }
-        } catch {
-            responseReturn = 0
-        }
-        
-        //return doTCPCall(checkTokenString)
-        return responseReturn
-        
+        return doHTTPCall (params, token: "", route: "/auth/login", method: "POST")
     }
     
     class func doCreateAccount (account: NewAccount) -> String {
         
-        // @TODO Make struct full - matching backend - and this can be collpased programmatically
-        let createAccountString = "0~acmt~1~"+account.firstName+"~"+account.familyName+"~"+account.dateOfBirth+"~"+account.idNumber+"~"+account.contactNumber+"~~"+account.email+"~"+account.address+"~~~"+account.postalCode
-        
-        return doTCPCall(createAccountString)
+        //return doTCPCall(createAccountString)
+        let params = [
+            "AccountHolderGivenName": account.firstName,
+            "AccountHolderFamilyName" : account.familyName,
+            "AccountHolderDateOfBirth" : account.dateOfBirth,
+            "AccountHolderIdentificationNumber" : account.idNumber,
+            "AccountHolderContactNumber1" : account.contactNumber,
+            "AccountHolderContactNumber2" : "",
+            "AccountHolderEmailAddress" : account.email,
+            "AccountHolderAddressLine1" : account.address,
+            "AccountHolderAddressLine2" : "",
+            "AccountHolderAddressLine3" : "",
+            "AccountHolderPostalCode" : account.postalCode,
+        ]
+        return doHTTPCall (params, token: "", route: "/auth/account", method: "POST")
         
     }
     
     class func doCreateLogin (account: UserAccount) -> String {
         
-        let createLoginString = "0~appauth~3~"+account.userID+"~"+account.userPassword
-        
-        return doTCPCall(createLoginString)
+        let params = [
+            "User": account.userID,
+            "Password" : account.userPassword,
+        ]
+        return doHTTPCall (params, token: "", route: "/account", method: "POST")
         
     }
     
-    class func doCheckToken (token: String) -> Int {
+    class func doCheckToken (token: String) -> String {
         
-        //let checkTokenString = token+"~appauth~1"
-        var responseReturn = 0;
+        let params = ["":""]
+        return doHTTPCall (params, token: token, route: "/auth", method: "POST")
         
+    }
+    
+    class func doCheckAccountByID (token: String, idNumber: String) -> String {
+        
+        let params = ["":""]
+        return doHTTPCall (params, token: token, route: "/account/"+idNumber, method: "GET")
+        
+    }
+    
+    class func doListAccounts (token: String) -> String {
+        
+        let params = ["":""]
+        return doHTTPCall (params, token: token, route: "/account/all", method: "GET")
+        
+    }
+    
+    class func doListAccount (token: String) -> String {
+        
+        let params = ["":""]
+        return doHTTPCall (params, token: token, route: "/account", method: "GET")
+        
+    }
+    
+    class func doMakePayment (token: String, senderAccountNumber: String, recipientAccountNumber: String, senderBankNumber: String, recipientBankNumber: String,  paymentAmount: Float) -> String {
+        
+        // @TODO Leave bank number out for now as all accounts are on the same bank
+        // Convert float to string
+        let paymentString = paymentAmount.description
+        
+        let params = [
+            "SenderDetails" : senderAccountNumber+"@",
+            "RecipientDetails" : recipientAccountNumber+"@",
+            "Amount" : paymentString
+        ]
+        return doHTTPCall (params, token: token, route: "/payment/credit", method: "POST")
+        
+    }
+    
+    class func doMakeDeposit (token: String, paymentAmount: Float, accountNumber: String, bankNumber: String) -> String {
+        
+        // Convert float to string
+        let paymentString = paymentAmount.description
+        
+        let params = [
+            "AccountDetails" : accountNumber+"@",
+            "Amount" : paymentString
+        ]
+        return doHTTPCall (params, token: token, route: "/payment/deposit", method: "POST")
+        
+    }
+    
+    
+    class func doHTTPCall (params: [String:String], token: String, route: String, method: String) -> String{
+        var responseReturn = "";
+        //let params = ["User": account.userID, "Password" : account.userPassword]
+        print(params)
         do {
-            let opt = try HTTP.POST(domain + "/auth", headers: ["X-Auth-Token": token])
+            var opt = try HTTP.POST(domain + route, parameters: params)
+            // Add token if sent
+            if token != "" {
+                opt = try HTTP.POST(domain + route, headers: ["X-Auth-Token": token])
+            }
+            // Switch to GET
+            if method == "GET" {
+                opt = try HTTP.GET(domain + route, parameters: params)
+                // Add token if sent
+                if token != "" {
+                    opt = try HTTP.GET(domain + route, headers: ["X-Auth-Token": token])
+                }
+            }
+            
+            // Add token if sent
+            if token != "" {
+                opt = try HTTP.POST(domain + route, headers: ["X-Auth-Token": token])
+             }
+            // Self signed certs skip
             var attempted = false
             opt.auth = { challenge in
                 if !attempted {
@@ -109,116 +165,21 @@ final class HTTPClient {
                 }
                 return nil
             }
+
             opt.start { response in
                 let resp = Response(JSONDecoder(response.data))
-                if let error = response.error {
-                    let errorMsg = resp.error!
-                    if errorMsg == "httpApiHandlers: Token invalid" {
-                        responseReturn = 0 
-                    }
+                if (response.error != nil) {
+                    responseReturn = resp.error!
                     return
                 }
-                //let resp = Response(JSONDecoder(response.data))
-                responseReturn = 1
+                responseReturn = resp.error!
             }
-        } catch let error {
-            print("got an error creating the request: \(error)")
-            responseReturn = 0
+        } catch {
+            responseReturn = ""
         }
         
         //return doTCPCall(checkTokenString)
         return responseReturn
     }
-    
-    class func doCheckAccountByID (idNumber: String) -> String {
-        
-        // @TODO Implement on server, return user id token if valid
-        let checkString = "appauth~1002~"+idNumber
-        
-        return doTCPCall(checkString)
-        
-    }
-    
-    class func doListAccounts (token: String) -> String {
-        let listAccountsString = token+"~acmt~1000";
-        
-        return doTCPCall(listAccountsString)
-    }
-    
-    class func doListAccount (token: String) -> String {
-        let listAccountsString = token+"~acmt~1001";
-        
-        return doTCPCall(listAccountsString)
-    }
-    
-    class func doMakePayment (token: String, senderAccountNumber: String, recipientAccountNumber: String, senderBankNumber: String, recipientBankNumber: String,  paymentAmount: Float) -> String {
-        // @TODO Leave bank number out for now as all accounts are on the same bank
-        
-        // Convert float to string
-        let paymentString = paymentAmount.description
-        let paymentsString = token+"~pain~1~"+senderAccountNumber+"@~"+recipientAccountNumber+"@~"+paymentString;
-        
-        return doTCPCall(paymentsString)
-    }
-    
-    class func doMakeDeposit (token: String, paymentAmount: Float, accountNumber: String, bankNumber: String) -> String {
-        let listAccountsString = token+"~pain~1000~"+accountNumber+"@~"+paymentAmount.description;
-        
-        return doTCPCall(listAccountsString)
-    }
-    
-    
-    class func doTCPCall (command: String) -> String{
-        let s   =   TCPIPSocket()
-        let f   =   NSFileHandle(fileDescriptor: s.socketDescriptor)
-        
-        print(command)
-        
-        // @TODO: Does not work over TLS
-        // http://stackoverflow.com/a/30648011
-        
-        // Vagrant: 192.168.33.110, port:
-        // bank.ksred.me: 109.237.24.211
-        //s.connect(TCPIPSocketAddress(109, 237, 24, 211), 6600)
-        s.connect(TCPIPSocketAddress(127, 0, 0, 1), 3300)
-        //loginString = "0~appauth~2~52d27bde-9418-4a5d-8528-3fb32e1a5d69~TestPassword"
-        f.writeData((command as NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
-        let d   =   f.readDataToEndOfFile()
-        
-        print(NSString(data: d, encoding: NSUTF8StringEncoding)!)
-        
-        var response = NSString(data: d, encoding: NSUTF8StringEncoding)! as String
-        
-        // Replace all newlines
-        response = response.stringByReplacingOccurrencesOfString("\n", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        
-        print(response)
-        // @TODO: Check token here, in one place
-        return response
-    }
-    
-    
-    
-    //@TODO Try implementing https://developer.apple.com/library/ios/documentation/Security/Reference/secureTransportRef/
-    class func doTLSCall (command: String) -> String{
-        var socketfd = Darwin.socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)
-        
-        var addr = Darwin.sockaddr_in(sin_len: __uint8_t(sizeof(sockaddr_in)), sin_family: sa_family_t(AF_INET), sin_port: CFSwapInt16(6600), sin_addr: in_addr(s_addr: inet_addr("127.0.0.1")), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
-        var sock_addr = Darwin.sockaddr(sa_len: 0, sa_family: 0, sa_data: (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-        Darwin.memcpy(&sock_addr, &addr, Int(sizeof(sockaddr_in)))
-        
-        let err = Darwin.connect(socketfd, &sock_addr, socklen_t(sizeof(sockaddr_in)))
-        print(err)
-        
-        if let sslContext = SSLCreateContext(kCFAllocatorDefault, SSLProtocolSide.ClientSide, SSLConnectionType.StreamType) {
-            SSLSetIOFuncs(sslContext, sslReadCallback, sslWriteCallback)
-            SSLSetConnection(sslContext, &socketfd)
-            SSLSetSessionOption(sslContext, SSLSessionOption.BreakOnClientAuth, true)
-            SSLHandshake(sslContext)
-        }
-        
-        return "ok";
-    }
-
     
 }
