@@ -1,14 +1,16 @@
 //
-//  TCPClient.swift
+//  HTTPClient.swift
 //  Bank
 //
-//  Created by Kyle Redelinghuys on 2015/12/04.
-//  Copyright © 2015 Kyle Redelinghuys. All rights reserved.
+//  Created by Kyle Redelinghuys on 2016/03/21.
+//  Copyright © 2016 Kyle Redelinghuys. All rights reserved.
 //
 
 import Foundation
+import SwiftHTTP
+import JSONJoy
 
-struct TCPNewAccount {
+struct NewAccount {
     var firstName: String
     var familyName: String
     var dateOfBirth: String
@@ -19,14 +21,28 @@ struct TCPNewAccount {
     var postalCode: String
 }
 
-struct TCPUserAccount {
+struct UserAccount {
     var userID: String
     var userPassword: String
 }
 
-final class TCPClient {
+struct Response: JSONJoy {
+    let status: String?
+    let error: String?
+    let result: String?
+    init(_ decoder: JSONDecoder) {
+        status = decoder["status"].string
+        error = decoder["error"].string
+        result = decoder["result"].string
+    }
+}
+
+let domain = "https://bank.ksred.me:8443"
+
+final class HTTPClient {
     
-    class func doLogin (account: UserAccount) -> String {
+    class func doLogin (account: UserAccount) -> Int {
+        /*
         let command = "0~appauth~2~"+account.userID+"~"+account.userPassword
         var response = doTCPCall(command)
         
@@ -36,9 +52,31 @@ final class TCPClient {
         }
         
         return response
-
+*/
+        
+        //let checkTokenString = token+"~appauth~1"
+        var responseReturn = 0;
+        let params = ["User": account.userID, "Password" : account.userPassword]
+        print(params)
+        do {
+            let opt = try HTTP.POST(domain + "/auth/login", parameters: params)
+            opt.start { response in
+                let resp = Response(JSONDecoder(response.data))
+                if (response.error != nil) {
+                    responseReturn = 0 // -1
+                    return
+                }
+                responseReturn = 1
+            }
+        } catch {
+            responseReturn = 0
+        }
+        
+        //return doTCPCall(checkTokenString)
+        return responseReturn
+        
     }
-
+    
     class func doCreateAccount (account: NewAccount) -> String {
         
         // @TODO Make struct full - matching backend - and this can be collpased programmatically
@@ -56,12 +94,40 @@ final class TCPClient {
         
     }
     
-    class func doCheckToken (token: String) -> String {
+    class func doCheckToken (token: String) -> Int {
         
-        let checkTokenString = token+"~appauth~1"
+        //let checkTokenString = token+"~appauth~1"
+        var responseReturn = 0;
         
-        return doTCPCall(checkTokenString)
+        do {
+            let opt = try HTTP.POST(domain + "/auth", headers: ["X-Auth-Token": token])
+            var attempted = false
+            opt.auth = { challenge in
+                if !attempted {
+                    attempted = true
+                    return NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!)
+                }
+                return nil
+            }
+            opt.start { response in
+                let resp = Response(JSONDecoder(response.data))
+                if let error = response.error {
+                    let errorMsg = resp.error!
+                    if errorMsg == "httpApiHandlers: Token invalid" {
+                        responseReturn = 0 
+                    }
+                    return
+                }
+                //let resp = Response(JSONDecoder(response.data))
+                responseReturn = 1
+            }
+        } catch let error {
+            print("got an error creating the request: \(error)")
+            responseReturn = 0
+        }
         
+        //return doTCPCall(checkTokenString)
+        return responseReturn
     }
     
     class func doCheckAccountByID (idNumber: String) -> String {
@@ -131,7 +197,7 @@ final class TCPClient {
         return response
     }
     
-   
+    
     
     //@TODO Try implementing https://developer.apple.com/library/ios/documentation/Security/Reference/secureTransportRef/
     class func doTLSCall (command: String) -> String{
@@ -155,69 +221,4 @@ final class TCPClient {
     }
 
     
-}
-
-func sslReadCallback(connection: SSLConnectionRef,
-    data: UnsafeMutablePointer<Void>,
-    var dataLength: UnsafeMutablePointer<Int>) -> OSStatus {
-        
-        let socketfd = UnsafePointer<Int32>(connection).memory
-        
-        let bytesRequested = dataLength.memory
-        let bytesRead = read(socketfd, data, UnsafePointer<Int>(dataLength).memory)
-        
-        if (bytesRead > 0) {
-            dataLength = UnsafeMutablePointer<Int>.alloc(1)
-            dataLength.initialize(bytesRead)
-            if bytesRequested > bytesRead {
-                return Int32(errSSLWouldBlock)
-            } else {
-                return noErr
-            }
-        } else if (bytesRead == 0) {
-            dataLength = UnsafeMutablePointer<Int>.alloc(1)
-            dataLength.initialize(0)
-            return Int32(errSSLClosedGraceful)
-        } else {
-            dataLength = UnsafeMutablePointer<Int>.alloc(1)
-            dataLength.initialize(0)
-            switch (errno) {
-            case ENOENT: return Int32(errSSLClosedGraceful)
-            case EAGAIN: return Int32(errSSLWouldBlock)
-            case ECONNRESET: return Int32(errSSLClosedAbort)
-            default: return Int32(errSecIO)
-            }
-        }
-}
-
-func sslWriteCallback(connection: SSLConnectionRef,
-    data: UnsafePointer<Void>,
-    var dataLength: UnsafeMutablePointer<Int>) -> OSStatus {
-        
-        let socketfd = UnsafePointer<Int32>(connection).memory
-        
-        let bytesToWrite = dataLength.memory
-        let bytesWritten = write(socketfd, data, UnsafePointer<Int>(dataLength).memory)
-        
-        if (bytesWritten > 0) {
-            dataLength = UnsafeMutablePointer<Int>.alloc(1)
-            dataLength.initialize(bytesWritten)
-            if (bytesToWrite > bytesWritten) {
-                return Int32(errSSLWouldBlock)
-            } else {
-                return noErr
-            }
-        } else if (bytesWritten == 0) {
-            dataLength = UnsafeMutablePointer<Int>.alloc(1)
-            dataLength.initialize(0)
-            return Int32(errSSLClosedGraceful)
-        } else {
-            dataLength = UnsafeMutablePointer<Int>.alloc(1)
-            dataLength.initialize(0)
-            if (EAGAIN == errno) {
-                return Int32(errSSLWouldBlock)
-            } else {
-                return Int32(errSecIO)
-            }
-        }
 }

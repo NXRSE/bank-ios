@@ -24,6 +24,9 @@ class LoginViewController: UIViewController {
         let userID = NSUserDefaults.standardUserDefaults().stringForKey("userID");
         let password = NSUserDefaults.standardUserDefaults().stringForKey("userPassword");
         
+        print(password)
+        print(userID)
+        
         if (password! == "") {
             // @TODO Check to see if this fails
             errorLabel.text = "Please input password"
@@ -42,10 +45,10 @@ class LoginViewController: UIViewController {
                     return
                 }
                 
-                let tokenTest = TCPClient.doCheckToken(token)
+                let tokenTest = HTTPClient.doCheckToken(token)
                 
                 // Test token
-                if (tokenTest == "0~Token not valid" || tokenTest == "0~Incorrect token") {
+                if (tokenTest == 0 || tokenTest == -1) {
                     
                     // Log in for user and get new token
                     let userID = NSUserDefaults.standardUserDefaults().stringForKey("userID")!;
@@ -54,8 +57,8 @@ class LoginViewController: UIViewController {
                     let accountDetails = UserAccount(userID: userID, userPassword: password)
                     
                     // Log in
-                    let token = TCPClient.doLogin(accountDetails)
-                    if token.characters.count < 0 {
+                    let token = HTTPClient.doLogin(accountDetails)
+                    if token == 0 {
                         let alertController = UIAlertController(title: "Bank", message:
                             "Could not get new token", preferredStyle: UIAlertControllerStyle.Alert)
                         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
@@ -96,8 +99,8 @@ class LoginViewController: UIViewController {
                 let accountDetails = UserAccount(userID: idResult, userPassword: password!)
                 
                 // Log in
-                let token = TCPClient.doLogin(accountDetails)
-                if token.characters.count < 0 {
+                let token = HTTPClient.doLogin(accountDetails)
+                if token == 0 {
                     let alertController = UIAlertController(title: "Bank", message:
                         "Could not get new token", preferredStyle: UIAlertControllerStyle.Alert)
                     alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
