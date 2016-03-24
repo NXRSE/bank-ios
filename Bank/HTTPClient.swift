@@ -27,19 +27,17 @@ struct UserAccount {
 }
 
 struct Response: JSONJoy {
-    let status: String?
-    let error: String?
-    let result: String?
+    let error: String!
+    let result: String!
     init(_ decoder: JSONDecoder) {
-        status = decoder["status"].string
         error = decoder["error"].string
-        result = decoder["result"].string
+        result = decoder["response"].string
     }
 }
 
 struct HTTPResult {
-    var message: String?
-    var error: String?
+    var message: String!
+    var error: String!
 }
 
 let domain = "https://bank.ksred.me:8443"
@@ -68,7 +66,7 @@ final class HTTPClient {
             "AccountHolderAddressLine3" : "",
             "AccountHolderPostalCode" : account.postalCode,
         ]
-        return doHTTPCall (params, token: "", route: "/auth/account", method: "POST")
+        return doHTTPCall (params, token: "", route: "/account", method: "POST")
         
     }
     
@@ -139,54 +137,106 @@ final class HTTPClient {
     }
     
     
-    class func doHTTPCall (params: [String:String], token: String, route: String, method: String) -> HTTPResult{
-        var responseReturn = HTTPResult(message : "", error : "");
+    class func doHTTPCall (let params: [String:String], token: String, route: String, method: String) -> HTTPResult{
+        var responseReturn = HTTPResult(message : "", error : "Error with HTTP call to "+domain+route);
         //let params = ["User": account.userID, "Password" : account.userPassword]
-        print("Making the call")
-        print(params)
+        
+        /*
+        The below HTTP call is async and currently causes problems if not run in the right order.
+        Right now we are using a hacky "lock" variable to sit and wait while the current HTTP req finishes.
+        @TODO: Do this properly, using either non-async calls or proper handling of the async.
+        */
+        
+        var locked = true;
+        print("Start HTTP")
+        
         do {
             var opt = try HTTP.POST(domain + route, parameters: params)
             // Add token if sent
             if token != "" {
-                opt = try HTTP.POST(domain + route, headers: ["X-Auth-Token": token])
+                opt = try HTTP.POST(domain + route, headers: ["X-Auth-Token": token], parameters: params)
             }
+            
             // Switch to GET
             if method == "GET" {
                 opt = try HTTP.GET(domain + route, parameters: params)
                 // Add token if sent
                 if token != "" {
-                    opt = try HTTP.GET(domain + route, headers: ["X-Auth-Token": token])
+                    opt = try HTTP.GET(domain + route, headers: ["X-Auth-Token": token], parameters: params)
                 }
             }
             
-            // Add token if sent
-            if token != "" {
-                opt = try HTTP.POST(domain + route, headers: ["X-Auth-Token": token])
-             }
             // Self signed certs skip
             var attempted = false
             opt.auth = { challenge in
                 if !attempted {
                     attempted = true
+                    locked = false;
                     return NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!)
                 }
+                locked = false;
                 return nil
             }
 
+            //opt.start(<#T##completionHandler: ((Response) -> Void)##((Response) -> Void)##(Response) -> Void#>)
+            
             opt.start { response in
                 let resp = Response(JSONDecoder(response.data))
                 if (response.error != nil) {
+                    print("Call to: "+domain+route+", error")
+                    print(resp)
                     responseReturn.error = resp.error!
+                    responseReturn.message = ""
+                    locked = false;
                     return
                 }
-                responseReturn.message = resp.result!
-                print("###########")
+                print("Call to: "+domain+route+", success")
                 print(resp)
+                responseReturn.message = resp.result!
+                responseReturn.error = ""
+                locked = false;
             }
+            
+            /*
+            opt.onFinish = { response in
+                let resp = Response(JSONDecoder(response.data))
+                if (response.error != nil) {
+                    print("Call to: "+domain+route+", error")
+                    print(resp)
+                    responseReturn.error = resp.error!
+                    responseReturn.message = ""
+                    locked = false;
+                    //LoginViewController.TestToken(responseReturn)
+                    return
+                }
+                print("Call to: "+domain+route+", success")
+                print(resp)
+                responseReturn.message = resp.result!
+                responseReturn.error = ""
+                //LoginViewController.TestToken(responseReturn)
+                locked = false;
+                
+            }
+            */
+            
         } catch {
             responseReturn.error = "An error occurred"
+            responseReturn.message = ""
+            locked = false;
         }
+        
+        while(locked){wait()}
+        
+        print(responseReturn)
+        print("After func")
+        
         return responseReturn
     }
+   
+    
+}
+
+
+func testfunc(token: String) {
     
 }

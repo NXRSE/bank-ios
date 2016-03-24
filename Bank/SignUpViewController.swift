@@ -58,21 +58,25 @@ class SignUpViewController: UIViewController {
         // If values there, we submit for account creation
         let accountDetails = NewAccount(firstName: firstName!, familyName: familyName!, dateOfBirth: dateOfBirth!, idNumber: idNumber!, email: email!, contactNumber: contactNumber!, address: address!, postalCode: postalCode!)
         
-        let createAccountResult = TCPClient.doCreateAccount(accountDetails)
+        let createAccountResult = HTTPClient.doCreateAccount(accountDetails)
         print(createAccountResult)
+        print("1")
         
-        // @TODO Implement more solid response handling, maybe through TCPClient class
-        if createAccountResult.characters.count > 0 {
+        if createAccountResult.error! == "" {
             // Set variables
-            NSUserDefaults.standardUserDefaults().setObject(createAccountResult, forKey: "userID")
+            NSUserDefaults.standardUserDefaults().setObject(createAccountResult.message!, forKey: "userID")
             // Load account password view
             let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("PasswordCreate")
             self.showViewController(vc as! UIViewController, sender: vc)
         } else {
-            errorLabel.text = "Unable to create account: "+createAccountResult
+            errorLabel.text = "Unable to create account: "+createAccountResult.error!
             return
         }
         
+    }
+    
+    func testFunc(string: String) {
+        print("Callback "+string)
     }
     
     // Password
@@ -103,10 +107,10 @@ class SignUpViewController: UIViewController {
         let accountDetails = UserAccount(userID: userID, userPassword: passwordOne!)
         
         // Create auth account
-        let createAccountResult = TCPClient.doCreateLogin(accountDetails)
+        let createAccountResult = HTTPClient.doCreateLogin(accountDetails)
         print(createAccountResult)
         
-        if createAccountResult != "1~Successfully created account" {
+        if createAccountResult.error! != "" {
             passwordErrorLabel.text = "Could not create account"
             return
         }
@@ -114,14 +118,14 @@ class SignUpViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().setObject(passwordOne!, forKey: "userPassword")
         
         // Log in
-        let token = TCPClient.doLogin(accountDetails)
-        if token.characters.count < 0 {
+        let token = HTTPClient.doLogin(accountDetails)
+        if token.error != "" {
             passwordErrorLabel.text = "Could not log user in"
             return
         }
         
         // Set token if not blank
-        NSUserDefaults.standardUserDefaults().setObject(token, forKey: "userToken")
+        NSUserDefaults.standardUserDefaults().setObject(token.message!, forKey: "userToken")
         
         // Load account summary view
         let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountLanding")

@@ -19,20 +19,15 @@ class AccountSummaryViewController: UIViewController {
         let token = NSUserDefaults.standardUserDefaults().stringForKey("userToken")!;
         
         // Get balance
-        let account = TCPClient.doListAccount(token)
+        let account = HTTPClient.doListAccount(token)
         print(account)
         
-        // @TODO: Convert into helper function
-        // Parse account details
-        let listAccountArr = account.componentsSeparatedByString("~")
-        //print(listAccountsArr)
-        
-        if (listAccountArr[0] == "1") {
+        if (account.error! == "") {
             var recipient = Recipient(accountNumber: "", bankNumber: "", accountHolderName: "", accountBalance: 0,
                 overdraft: 0, availableBalance: 0, timestamp: 0)
             // Successfull call
             // Split accounts from json list into array
-            let jsonListAccountsStr = listAccountArr[1]
+            let jsonListAccountsStr = account.message!
             let data = jsonListAccountsStr.dataUsingEncoding(NSUTF8StringEncoding)
             
             do {
@@ -98,20 +93,17 @@ class AccountSummaryViewController: UIViewController {
         //410026b3-aabd-4ea1-9158-a49af6c0e077~acmt~1000
         let token = NSUserDefaults.standardUserDefaults().stringForKey("userToken")!;
         // Get balance
-        let account = TCPClient.doListAccount(token)
+        let account = HTTPClient.doListAccount(token)
         print(account)
         
         // @TODO: Convert into helper function
-        // Parse account details
-        let listAccountArr = account.componentsSeparatedByString("~")
-        //print(listAccountsArr)
         
-        if (listAccountArr[0] == "1") {
+        if (account.error! == "") {
             var recipient = Recipient(accountNumber: "", bankNumber: "", accountHolderName: "", accountBalance: 0,
                 overdraft: 0, availableBalance: 0, timestamp: 0)
             // Successfull call
             // Split accounts from json list into array
-            let jsonListAccountsStr = listAccountArr[1]
+            let jsonListAccountsStr = account.message!
             let data = jsonListAccountsStr.dataUsingEncoding(NSUTF8StringEncoding)
             
             do {

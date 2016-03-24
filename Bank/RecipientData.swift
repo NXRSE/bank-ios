@@ -17,19 +17,16 @@ func getData() -> [Recipient] {
     
     //410026b3-aabd-4ea1-9158-a49af6c0e077~acmt~1000
     let token = NSUserDefaults.standardUserDefaults().stringForKey("userToken")!;
-    let listAccountsResult = TCPClient.doListAccounts(token);
+    let listAccountsResult = HTTPClient.doListAccounts(token);
     //print(listAccountsResult);
     
-    // Parse account details
-    let listAccountsArr = listAccountsResult.componentsSeparatedByString("~")
-    //print(listAccountsArr)
     
     var recipientData: [Recipient] = []
     
-    if (listAccountsArr[0] == "1") {
+    if (listAccountsResult.error! != "") {
         // Successfull call
         // Split accounts from json list into array
-        let jsonListAccountsStr = listAccountsArr[1]
+        let jsonListAccountsStr = listAccountsResult.message!
         let data = jsonListAccountsStr.dataUsingEncoding(NSUTF8StringEncoding)
         
         do {

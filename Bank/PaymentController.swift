@@ -33,12 +33,12 @@ class PaymentController: UIViewController {
         let senderAccountNumber = NSUserDefaults.standardUserDefaults().stringForKey("userID")!
         let recipientAccountNumber = NSUserDefaults.standardUserDefaults().stringForKey("paymentRecipientAccountNumber")!
         
-        let paymentResult = TCPClient.doMakePayment(token, senderAccountNumber: senderAccountNumber, recipientAccountNumber: recipientAccountNumber, senderBankNumber: "", recipientBankNumber: "",  paymentAmount: paymentFloat)
+        let paymentResult = HTTPClient.doMakePayment(token, senderAccountNumber: senderAccountNumber, recipientAccountNumber: recipientAccountNumber, senderBankNumber: "", recipientBankNumber: "",  paymentAmount: paymentFloat)
         
         print(paymentResult)
         // @FIXME: Make this a real response
-        if paymentResult != "true" {
-            ErrorLabel.text = paymentResult
+        if paymentResult.error! != "" {
+            ErrorLabel.text = paymentResult.error!
             return
         }
         

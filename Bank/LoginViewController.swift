@@ -12,6 +12,11 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    struct HTTPResult {
+        var message: String!
+        var error: String!
+    }
+    
     @IBOutlet weak var loginOutlet: UIButton!
     @IBOutlet weak var loginOutletButton: UILabel!
     @IBOutlet weak var idNumberField: UITextField!
@@ -27,7 +32,7 @@ class LoginViewController: UIViewController {
         print(password)
         print(userID)
         
-        if (password! == "") {
+        if (passwordText.text == "") {
             // @TODO Check to see if this fails
             errorLabel.text = "Please input password"
             return
@@ -45,7 +50,9 @@ class LoginViewController: UIViewController {
                     return
                 }
                 
+                print("Testing token")
                 let tokenTest = HTTPClient.doCheckToken(token)
+                print(tokenTest)
                 
                 // Test token
                 if ( tokenTest.error != "" ) {
@@ -92,20 +99,19 @@ class LoginViewController: UIViewController {
             
             // Check if account exists with ID Number
             //@TODO Might have to remove the token from this API call, or find another way
-            //@TODO Get token
-            let token = ""
+            let token = NSUserDefaults.standardUserDefaults().stringForKey("userToken")!;
             let idResult = HTTPClient.doCheckAccountByID(token, idNumber: idNumber!)
-            if (idResult.message != "0~Account does not exist") {
+            if (idResult.error != "") {
                 // Set userid
                 NSUserDefaults.standardUserDefaults().setObject(idResult.message, forKey: "userID")
                 // Do login
-                let accountDetails = UserAccount(userID: idResult.message, userPassword: password!)
+                let accountDetails = UserAccount(userID: idResult.message!, userPassword: password!)
                 
                 // Log in
                 let token = HTTPClient.doLogin(accountDetails)
                 if token.error != "" {
                     let alertController = UIAlertController(title: "Bank", message:
-                        "Could not get new token", preferredStyle: UIAlertControllerStyle.Alert)
+                        "Could not get new token. "+token.error!, preferredStyle: UIAlertControllerStyle.Alert)
                     alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
                     
                     self.presentViewController(alertController, animated: true, completion: nil)
@@ -156,5 +162,40 @@ class LoginViewController: UIViewController {
             let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("MainController")
             self.showViewController(vc as! UIViewController, sender: vc)
         }
+    }
+    
+    func TestToken (tokenTest: HTTPResult) {
+        // Test token
+        if ( tokenTest.error != "" ) {
+            
+            // Log in for user and get new token
+            let userID = NSUserDefaults.standardUserDefaults().stringForKey("userID")!;
+            let password = NSUserDefaults.standardUserDefaults().stringForKey("userPassword")!;
+            
+            let accountDetails = UserAccount(userID: userID, userPassword: password)
+            
+            // Log in
+            let token = HTTPClient.doLogin(accountDetails)
+            if token.error != "" {
+                let alertController = UIAlertController(title: "Bank", message:
+                    "Could not get new token. "+token.error!, preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+                return
+            }
+            
+            // Set token if not blank
+            NSUserDefaults.standardUserDefaults().setObject(token.message, forKey: "userToken")
+            
+            // Load view
+            let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountLanding")
+            self.showViewController(vc as! UIViewController, sender: vc)
+        } else {
+            // Load view
+            let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountLanding")
+            self.showViewController(vc as! UIViewController, sender: vc)
+        }
+
     }
 }

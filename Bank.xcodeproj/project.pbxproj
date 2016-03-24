@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E0E23D01C5A2DD000510B41 /* TLSTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0E23CF1C5A2DD000510B41 /* TLSTest.swift */; };
 		3E3161751C07E7190090664F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3161741C07E7190090664F /* AppDelegate.swift */; };
 		3E3161771C07E7190090664F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3161761C07E7190090664F /* ViewController.swift */; };
 		3E31617A1C07E7190090664F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E3161781C07E7190090664F /* Main.storyboard */; };
@@ -42,7 +41,6 @@
 		3ED233891C11235A00CC5714 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED233881C11235A00CC5714 /* LoginViewController.swift */; };
 		3ED2338B1C11236900CC5714 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2338A1C11236900CC5714 /* SignUpViewController.swift */; };
 		3ED2338D1C11237F00CC5714 /* AccountSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2338C1C11237F00CC5714 /* AccountSummaryViewController.swift */; };
-		3ED2338F1C11AF5D00CC5714 /* TCPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2338E1C11AF5D00CC5714 /* TCPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,7 +145,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3E0E23CF1C5A2DD000510B41 /* TLSTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLSTest.swift; sourceTree = "<group>"; };
 		3E3161711C07E7190090664F /* Bank.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bank.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E3161741C07E7190090664F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E3161761C07E7190090664F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -178,7 +175,6 @@
 		3ED233881C11235A00CC5714 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3ED2338A1C11236900CC5714 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3ED2338C1C11237F00CC5714 /* AccountSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSummaryViewController.swift; sourceTree = "<group>"; };
-		3ED2338E1C11AF5D00CC5714 /* TCPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,8 +235,6 @@
 				3ED233881C11235A00CC5714 /* LoginViewController.swift */,
 				3ED2338A1C11236900CC5714 /* SignUpViewController.swift */,
 				3ED2338C1C11237F00CC5714 /* AccountSummaryViewController.swift */,
-				3ED2338E1C11AF5D00CC5714 /* TCPClient.swift */,
-				3E0E23CF1C5A2DD000510B41 /* TLSTest.swift */,
 				3EC2B79D1C664BA0009D5D80 /* MainController.swift */,
 				3E49D2A81CA0B4800060C24A /* HTTPClient.swift */,
 			);
@@ -495,7 +489,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ED2338F1C11AF5D00CC5714 /* TCPClient.swift in Sources */,
 				3ED2338D1C11237F00CC5714 /* AccountSummaryViewController.swift in Sources */,
 				3ED2338B1C11236900CC5714 /* SignUpViewController.swift in Sources */,
 				3E9BEE3C1C427E0400191485 /* DepositController.swift in Sources */,
@@ -506,7 +499,6 @@
 				3E9BEE361C4252BD00191485 /* RecipientListController.swift in Sources */,
 				3ED233871C105C7200CC5714 /* TCPIPSocket.swift in Sources */,
 				3E49D2A91CA0B4800060C24A /* HTTPClient.swift in Sources */,
-				3E0E23D01C5A2DD000510B41 /* TLSTest.swift in Sources */,
 				3E9BEE3A1C42574800191485 /* PaymentController.swift in Sources */,
 				3E3161751C07E7190090664F /* AppDelegate.swift in Sources */,
 				3ED233891C11235A00CC5714 /* LoginViewController.swift in Sources */,

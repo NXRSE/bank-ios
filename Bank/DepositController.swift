@@ -30,12 +30,12 @@ class DepositController: UIViewController {
         }
         
         // Make deposit
-        let deposit = TCPClient.doMakeDeposit(token, paymentAmount: depositAmountFloat, accountNumber: userID, bankNumber: "")
+        let deposit = HTTPClient.doMakeDeposit(token, paymentAmount: depositAmountFloat, accountNumber: userID, bankNumber: "")
         print(deposit)
-        if (deposit == "true") {
+        if (deposit.error != "") {
             NSUserDefaults.standardUserDefaults().setObject("Deposit successful", forKey: "flashMessage")
         } else {
-            NSUserDefaults.standardUserDefaults().setObject("Could not be completed", forKey: "flashMessage")
+            NSUserDefaults.standardUserDefaults().setObject("Could not be completed. "+deposit.error!, forKey: "flashMessage")
         }
         // Load view
         let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("AccountLanding")
