@@ -1,4 +1,4 @@
-![Bank logo](https://ksred.me/bank.png)
+![Bank logo](https://bvnk.co/bvnk-dark-hor.png)
 # Bank - iOS app
 
 This mobile application is the client implementation for a [banking project](https://github.com/ksred/bank).
